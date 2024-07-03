@@ -19,6 +19,9 @@ function generateTable() {
       // Calculer de la valeur à afficher avec incrémentation par rapport à la diagonale
       const value = (j * height + i) % (width * height);
 
+      // Pas la bonne solution , je pense avoir pris la mauvaise direction en me tournant vers une double boucle For
+      // je pense qu'un calcul simple était possible sans avoir à la faire ici afin d'obtenir les suites de chiffres que nous souhaitions mettre dans les cellules.
+
       // ajout du texte à la cellule
       cell.textContent = value.toString();
 
