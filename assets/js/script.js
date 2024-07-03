@@ -17,8 +17,7 @@ function generateTable() {
       const cell = document.createElement("td");
 
       // Calculer de la valeur à afficher avec incrémentation par rapport à la diagonale
-      const diagIndex = (j + i) % width;
-      const value = diagIndex + width * Math.floor((j + i) / width);
+      const value = (j * height + i) % (width * height);
 
       // ajout du texte à la cellule
       cell.textContent = value.toString();
