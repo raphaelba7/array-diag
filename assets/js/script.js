@@ -3,39 +3,53 @@ function generateTable() {
   const width = parseInt(document.getElementById("width").value);
   const height = parseInt(document.getElementById("height").value);
 
-  // Ref vers le conteneur de la table dans le DOM
   const tableContainer = document.getElementById("table-container");
-
-  // Création de l'elem de tableau
   const table = document.createElement("table");
+  let tableArray = Array.from(Array(height), () => Array(width).fill(null));
 
-  // Boucle pour créer les lignes et les cellules
+  let value = 0;
+  let row = 0;
+  let col = 0;
+
+  // Remplir la diagonale principale
+  while (row < height && col < width) {
+    tableArray[row][col] = value++;
+    row++;
+    col++;
+  }
+
+  // Remplir les autres diagonales
+  for (let startRow = 1; startRow < height; startRow++) {
+    let r = startRow;
+    let c = 0;
+    while (r < height && c < width) {
+      tableArray[r][c] = value++;
+      r++;
+      c++;
+    }
+  }
+  for (let startCol = 1; startCol < width; startCol++) {
+    let r = 0;
+    let c = startCol;
+    while (r < height && c < width) {
+      tableArray[r][c] = value++;
+      r++;
+      c++;
+    }
+  }
+
+  // Créer le tableau HTML à partir du tableau rempli
   for (let i = 0; i < height; i++) {
     const row = document.createElement("tr");
-
     for (let j = 0; j < width; j++) {
       const cell = document.createElement("td");
-
-      // Calculer de la valeur à afficher avec incrémentation par rapport à la diagonale
-      const value = (j * height + i) % (width * height);
-
-      // Pas la bonne solution , je pense avoir pris la mauvaise direction en me tournant vers une double boucle For
-      // je pense qu'un calcul simple était possible sans avoir à la faire ici afin d'obtenir les suites de chiffres que nous souhaitions mettre dans les cellules.
-
-      // ajout du texte à la cellule
-      cell.textContent = value.toString();
-
-      //ajout de la cellule à la ligne
+      cell.textContent = tableArray[i][j] !== null ? tableArray[i][j] : "";
       row.appendChild(cell);
     }
-
-    // ajout de la ligne au tableau
     table.appendChild(row);
   }
 
-  // clean du contenu précédent de la table
+  // Afficher le tableau généré
   tableContainer.innerHTML = "";
-
-  // ajout du tableau généré
   tableContainer.appendChild(table);
 }
